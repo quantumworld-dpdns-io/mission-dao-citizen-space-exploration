@@ -1,0 +1,29 @@
+# Apache Teaclave TEE configuration for confidential mission data processing
+
+[worker]
+host = "0.0.0.0"
+port = 7777
+data_dir = "/data/teaclave"
+max_concurrent_tasks = 16
+
+[attestation]
+type = "simulation"  # Use "sgx" for production with Intel SGX hardware
+
+[runtime]
+memory_limit_mb = 4096
+cpu_limit = 4
+enable_file_input = true
+enable_file_output = true
+
+[tls]
+enabled = true
+cert_path = "/etc/teaclave/cert.pem"
+key_path = "/etc/teaclave/key.pem"
+
+[function]
+# Allowed WASM functions for confidential computing
+allowed_functions = [
+    "telemetry_decrypt",
+    "payload_verify",
+    "mission_data_aggregate",
+]

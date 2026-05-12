@@ -1,0 +1,46 @@
+spin_manifest_version = 2
+
+[application]
+name = "mission-dao-spin"
+version = "0.1.0"
+description = "Fermyon Spin micro-APIs for Mission DAO"
+
+[[trigger.http]]
+route = "/api/status"
+component = "mission-status"
+
+[[trigger.http]]
+route = "/api/funding/calculate"
+component = "funding-calculator"
+
+[[trigger.http]]
+route = "/api/telemetry/summary"
+component = "telemetry-summary"
+
+[[trigger.http]]
+route = "/api/health"
+component = "health-check"
+
+[component.mission-status]
+source = "target/wasm32-wasi/release/mission_status.wasm"
+[component.mission-status.build]
+command = "cargo build --target wasm32-wasi --release"
+[component.mission-status.environment]
+MCP_TELEMETRY_URL = "http://localhost:8004"
+
+[component.funding-calculator]
+source = "target/wasm32-wasi/release/funding_calculator.wasm"
+[component.funding-calculator.build]
+command = "cargo build --target wasm32-wasi --release"
+[component.funding-calculator.environment]
+MCP_ONCHAIN_URL = "http://localhost:8003"
+
+[component.telemetry-summary]
+source = "target/wasm32-wasi/release/telemetry_summary.wasm"
+[component.telemetry-summary.build]
+command = "cargo build --target wasm32-wasi --release"
+
+[component.health-check]
+source = "target/wasm32-wasi/release/health_check.wasm"
+[component.health-check.build]
+command = "cargo build --target wasm32-wasi --release"
