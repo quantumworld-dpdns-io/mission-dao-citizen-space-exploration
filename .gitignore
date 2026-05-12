@@ -13,6 +13,14 @@ build/
 __pycache__/
 *.pyc
 *.class
+target/
+
+# Noir artifacts
+src/contracts/circuits/target/
+src/contracts/circuits/contract/
+
+# RISC Zero artifacts
+src/zkvm/target/
 
 # Dependencies
 node_modules/
@@ -22,3 +30,6 @@ vendor/
 .env
 .env.*
 !.env.example
+
+# Robot Framework reports
+tests/report/
