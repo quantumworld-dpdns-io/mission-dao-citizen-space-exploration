@@ -1,34 +1,90 @@
 # mission-dao-citizen-space-exploration
 
-> Mission DAO for citizen space exploration – platform for communities to fund and govern CubeSat missions with verifiable data publication
+> Mission DAO for citizen space exploration — platform for communities to fund and govern CubeSat missions with verifiable data publication
 
-## Overview
+Part of the [quantumworld-dpdns-io](https://github.com/quantumworld-dpdns-io) Wild SaaS & Tech Development initiative.
 
-This repository is part of the [quantumworld-dpdns-io](https://github.com/quantumworld-dpdns-io) Wild SaaS & Tech Development initiative.
+## Architecture
 
-## Getting Started
+The platform integrates:
+- **ZK Proofs** — Noir circuits + RISC Zero zkVM for verifiable mission-data publication
+- **DAO Governance** — Solidity verifiers deployed to Arbitrum / Base / Sepolia
+- **Agent Orchestration** — LangGraph + CrewAI for proposal workflows
+- **Data Lakehouse** — Apache Iceberg + Trino + DuckDB for telemetry analytics
+- **Edge AI** — Ollama/SGLang for local mission-assist model serving
+- **Federated Learning** — Flower for cross-community telemetry model training
+- **WebAssembly** — Fermyon Spin + Wasmtime for sandboxed plugin execution
 
-```bash
-# Clone the repo
-git clone https://github.com/quantumworld-dpdns-io/mission-dao-citizen-space-exploration.git
-cd mission-dao-citizen-space-exploration
-```
+## Phase Roadmap
+
+| Phase | Focus | Status |
+|-------|-------|--------|
+| **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | In Progress |
+| **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | Planned |
+| **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | Planned |
+| **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | Planned |
+| **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | Planned |
+| **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | Planned |
 
 ## Project Structure
 
 ```
 .
-├── src/          # Application source code
-├── docs/         # Architecture decisions, API specs, runbooks
-├── tests/        # Unit / integration / e2e tests
-└── .github/
-    └── workflows/ # CI/CD pipelines
+├── src/
+│   ├── contracts/
+│   │   ├── circuits/          # Noir ZK circuits (telemetry, funding, Merkle)
+│   │   └── solidity/          # Solidity verifier contracts + deploy scripts
+│   └── zkvm/                  # RISC Zero zkVM guest/host programs
+├── scripts/                   # Setup, build, and test scripts
+├── tests/
+│   ├── resources/             # Robot Framework shared resources
+│   ├── circuits/              # Circuit integration tests
+│   ├── zkvm/                  # zkVM integration tests
+│   ├── verifiers/             # Verifier contract tests
+│   ├── scripts/               # Script execution tests
+│   └── suites/                # Main test suites
+├── docs/
+│   ├── CONTRIBUTING.md        # Contribution guide
+│   ├── plan.md                # Phase 1 execution plan
+│   └── progress.md            # Live build progress
+├── .github/workflows/         # CI/CD pipelines
+├── Makefile                   # Build automation
+└── LICENSE                    # MIT
 ```
 
-## Contributing
+## Prerequisites
 
-Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) before opening a pull request.
+- [Noir](https://noir-lang.org/) (latest stable via `noirup`)
+- [RISC Zero](https://risczero.com/) (v1.2.x via `rzup`)
+- [Rust](https://www.rust-lang.org/) (edition 2021)
+- [Node.js](https://nodejs.org/) (for Hardhat/Solidity)
+- [Python](https://python.org/) 3.10+ (for Robot Framework)
+- [Robot Framework](https://robotframework.org/) (v7.x)
+
+## Quick Start
+
+```bash
+# Install toolchains
+make setup-noir
+make setup-zkvm
+
+# Build all circuits
+make build-circuits
+
+# Build zkVM programs
+make build-zkvm
+
+# Generate Solidity verifiers
+make generate-verifiers
+
+# Run tests
+make test-circuits
+make test-zkvm
+
+# Run full Robot Framework test suite
+make test-robot
+```
 
 ## License
 
-[MIT](LICENSE)
+MIT — see [LICENSE](LICENSE). ©2026 quantumworld-dpdns-io.
