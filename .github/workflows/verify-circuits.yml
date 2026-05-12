@@ -1,0 +1,35 @@
+name: Verify Noir Circuits
+
+on:
+  push:
+    branches: [main, dev]
+    paths:
+      - 'src/contracts/circuits/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/contracts/circuits/**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Noir toolchain
+        run: |
+          curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
+          export PATH="$HOME/.nargo/bin:$PATH"
+          noirup
+
+      - name: Compile circuits
+        working-directory: src/contracts/circuits
+        run: nargo compile
+
+      - name: Run circuit tests
+        working-directory: src/contracts/circuits
+        run: nargo test --show-output
+
+      - name: Generate Solidity verifiers
+        working-directory: src/contracts/circuits
+        run: nargo codegen-verifier || echo "codegen-verifier skipped (not available in all versions)"

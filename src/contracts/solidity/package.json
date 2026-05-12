@@ -1,0 +1,17 @@
+{
+  "name": "mission-dao-verifiers",
+  "version": "0.1.0",
+  "description": "Solidity verifier contracts for Mission DAO ZK proofs",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:arbitrum": "hardhat run deployment/deploy_arbitrum.ts --network arbitrum",
+    "deploy:base": "hardhat run deployment/deploy_base.ts --network base",
+    "deploy:sepolia": "hardhat run deployment/deploy_sepolia.ts --network sepolia",
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "typescript": "^5.4.0"
+  }
+}

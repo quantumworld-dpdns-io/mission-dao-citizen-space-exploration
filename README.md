@@ -1,34 +1,104 @@
 # mission-dao-citizen-space-exploration
 
-> Mission DAO for citizen space exploration – platform for communities to fund and govern CubeSat missions with verifiable data publication
+> Mission DAO for citizen space exploration — platform for communities to fund and govern CubeSat missions with verifiable data publication
 
-## Overview
+Part of the [quantumworld-dpdns-io](https://github.com/quantumworld-dpdns-io) Wild SaaS & Tech Development initiative.
 
-This repository is part of the [quantumworld-dpdns-io](https://github.com/quantumworld-dpdns-io) Wild SaaS & Tech Development initiative.
+## Architecture
 
-## Getting Started
+The platform integrates:
+- **ZK Proofs** — Noir circuits + RISC Zero zkVM for verifiable mission-data publication
+- **DAO Governance** — Solidity verifiers deployed to Arbitrum / Base / Sepolia
+- **Agent Orchestration** — LangGraph + CrewAI for proposal workflows
+- **Data Lakehouse** — Apache Iceberg + Trino + DuckDB for telemetry analytics
+- **Vector Retrieval** — Qdrant + LanceDB for mission-document RAG and multimodal telemetry search
+- **Local AI** — Ollama + SGLang for edge model serving and structured generation
+- **Federated Learning** — Flower for cross-community telemetry model training
+- **Observability** — OpenTelemetry + Arize Phoenix for LLM tracing and metrics
+- **WebAssembly** — Fermyon Spin + Wasmtime for sandboxed plugin execution
 
-```bash
-# Clone the repo
-git clone https://github.com/quantumworld-dpdns-io/mission-dao-citizen-space-exploration.git
-cd mission-dao-citizen-space-exploration
-```
+## Phase Roadmap
+
+| Phase | Focus | Status |
+|-------|-------|--------|
+| **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | ✅ Complete |
+| **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | ✅ Complete |
+| **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | ✅ Complete |
+| **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | ✅ Complete |
+| **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | ✅ Complete |
+| **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | ✅ Complete |
 
 ## Project Structure
 
 ```
 .
-├── src/          # Application source code
-├── docs/         # Architecture decisions, API specs, runbooks
-├── tests/        # Unit / integration / e2e tests
-└── .github/
-    └── workflows/ # CI/CD pipelines
+├── src/
+│   ├── agents/
+│   │   ├── governance/        # LangGraph proposal lifecycle state machine
+│   │   └── crews/             # CrewAI multi-agent mission planning
+│   ├── contracts/
+│   │   ├── circuits/          # Noir ZK circuits (telemetry, funding, Merkle)
+│   │   └── solidity/          # Solidity verifier contracts + deploy scripts
+│   ├── federated/             # Federated learning (Flower)
+│   ├── infra/                 # Cache, TEE, UCP, PQC infrastructure
+│   ├── lakehouse/             # Data lakehouse (Iceberg, DuckDB, Trino, Qdrant, LanceDB)
+│   ├── mcp/                   # MCP servers (GitHub, storage, on-chain, telemetry)
+│   ├── serving/               # Local AI serving (Ollama, SGLang, OTEL)
+│   └── zkvm/                  # RISC Zero zkVM guest/host programs
+├── scripts/                   # Setup, build, and test scripts
+├── tests/
+│   ├── resources/             # Robot Framework shared resources
+│   ├── agents/                # Governance & CrewAI agent tests
+│   ├── circuits/              # Circuit integration tests
+│   ├── mcp/                   # MCP server tests
+│   ├── zkvm/                  # zkVM integration tests
+│   ├── verifiers/             # Verifier contract tests
+│   ├── scripts/               # Script execution tests
+│   └── suites/                # Main test suites
+├── web/                     # Next.js 14 App Router frontend
+├── docker/                  # Docker Compose + multi-stage Dockerfiles
+├── docs/
+│   ├── CONTRIBUTING.md        # Contribution guide
+│   ├── plan.md                # Phase 1 execution plan
+│   └── progress.md            # Live build progress
+├── .github/workflows/         # CI/CD pipelines
+├── Makefile                   # Build automation
+└── LICENSE                    # MIT
 ```
 
-## Contributing
+## Prerequisites
 
-Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) before opening a pull request.
+- [Noir](https://noir-lang.org/) (latest stable via `noirup`)
+- [RISC Zero](https://risczero.com/) (v1.2.x via `rzup`)
+- [Rust](https://www.rust-lang.org/) (edition 2021)
+- [Node.js](https://nodejs.org/) (for Hardhat/Solidity)
+- [Python](https://python.org/) 3.10+ (for Robot Framework)
+- [Robot Framework](https://robotframework.org/) (v7.x)
+
+## Quick Start
+
+```bash
+# Install toolchains
+make setup-noir
+make setup-zkvm
+
+# Build all circuits
+make build-circuits
+
+# Build zkVM programs
+make build-zkvm
+
+# Generate Solidity verifiers
+make generate-verifiers
+
+# Run tests
+make test-circuits
+make test-zkvm
+
+# Run full Robot Framework test suite
+make test-robot
+```
 
 ## License
 
-[MIT](LICENSE)
+MIT — see [LICENSE](LICENSE). ©2026 quantumworld-dpdns-io.
