@@ -1,0 +1,7 @@
+tasks:
+  run:
+    command: robot --outputdir report --variablefile robot.yaml suites/all_tests.robot
+
+settings:
+  output_dir: report
+  log_level: INFO

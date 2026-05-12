@@ -19,7 +19,7 @@ The platform integrates:
 
 | Phase | Focus | Status |
 |-------|-------|--------|
-| **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | In Progress |
+| **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | ✅ Complete |
 | **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | Planned |
 | **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | Planned |
 | **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | Planned |
