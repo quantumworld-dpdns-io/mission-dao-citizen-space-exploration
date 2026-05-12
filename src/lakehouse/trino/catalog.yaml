@@ -1,0 +1,7 @@
+# Trino Iceberg catalog configuration
+# Place this file in Trino's etc/catalog/ directory
+connector.name: iceberg
+iceberg.catalog.type: rest
+iceberg.rest-catalog.uri: http://localhost:8181
+iceberg.rest-catalog.warehouse: mission-lakehouse
+iceberg.rest-catalog.security: NONE
