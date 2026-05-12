@@ -20,7 +20,7 @@ The platform integrates:
 | Phase | Focus | Status |
 |-------|-------|--------|
 | **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | ✅ Complete |
-| **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | Planned |
+| **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | ✅ Complete |
 | **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | Planned |
 | **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | Planned |
 | **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | Planned |
@@ -31,14 +31,20 @@ The platform integrates:
 ```
 .
 ├── src/
+│   ├── agents/
+│   │   ├── governance/        # LangGraph proposal lifecycle state machine
+│   │   └── crews/             # CrewAI multi-agent mission planning
 │   ├── contracts/
 │   │   ├── circuits/          # Noir ZK circuits (telemetry, funding, Merkle)
 │   │   └── solidity/          # Solidity verifier contracts + deploy scripts
+│   ├── mcp/                   # MCP servers (GitHub, storage, on-chain, telemetry)
 │   └── zkvm/                  # RISC Zero zkVM guest/host programs
 ├── scripts/                   # Setup, build, and test scripts
 ├── tests/
 │   ├── resources/             # Robot Framework shared resources
+│   ├── agents/                # Governance & CrewAI agent tests
 │   ├── circuits/              # Circuit integration tests
+│   ├── mcp/                   # MCP server tests
 │   ├── zkvm/                  # zkVM integration tests
 │   ├── verifiers/             # Verifier contract tests
 │   ├── scripts/               # Script execution tests

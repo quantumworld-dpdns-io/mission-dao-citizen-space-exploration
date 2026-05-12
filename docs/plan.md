@@ -102,3 +102,84 @@ All 9 agents execute in parallel (non-conflicting file paths):
 | CI trigger | push & PR to main |
 | Commit cadence | Every 60s to dev branch (--allow-empty) |
 | License | MIT, ©2026 quantumworld-dpdns-io |
+
+---
+
+# Phase 2 Execution Plan: Agentic Governance & Workflows
+
+## Objectives
+
+1. Implement LangGraph state machine for proposal lifecycle (submit → review → vote → execute)
+2. Define CrewAI agent roles for multi-agent mission planning: Mission Planner, Budget Analyst, Data Verifier, Community Liaison
+3. Build MCP servers for tool integration: GitHub issues, IPFS/Arweave storage, on-chain queries, telemetry API
+4. Add Robot Framework tests for all new components
+
+## Agent Architecture
+
+| Agent | Domain | Outputs |
+|-------|--------|---------|
+| Agents | LangGraph + CrewAI | src/agents/governance/ (6 files), src/agents/crews/ (5 files) |
+| MCP | Protocol Servers | src/mcp/ (6 files) |
+| Tests & Docs | E2E + Documentation | tests/agents/, tests/mcp/, docs/plan.md, docs/progress.md, README.md |
+
+## Files Created
+
+```
+src/
+├── __init__.py
+├── agents/
+│   ├── __init__.py
+│   ├── requirements.txt
+│   ├── governance/
+│   │   ├── __init__.py
+│   │   ├── state.py          # ProposalState TypedDict, ProposalStatus enum
+│   │   ├── models.py         # Pydantic Proposal model
+│   │   ├── nodes.py          # LangGraph node functions
+│   │   └── graph.py          # StateGraph definition with conditional edges
+│   └── crews/
+│       ├── __init__.py
+│       ├── agents.py          # 4 CrewAI agent definitions
+│       ├── tasks.py           # 4 CrewAI task definitions
+│       ├── crew.py            # CrewAI crew assembly (sequential)
+│       └── tools.py           # Shared agent tool wrappers
+├── mcp/
+│   ├── __init__.py
+│   ├── server.py              # Base MCPServer class (JSON-RPC 2.0)
+│   ├── github_server.py       # GitHub issues tools
+│   ├── storage_server.py      # IPFS/Arweave storage tools
+│   ├── onchain_server.py      # On-chain proposal/vote tools
+│   └── telemetry_server.py    # Telemetry query and ZK proof verification
+tests/
+├── agents/
+│   └── test_governance.robot   # 11 test cases
+└── mcp/
+    └── test_mcp_servers.robot  # 6 test cases
+```
+
+## Governance State Machine
+
+```
+Proposal Lifecycle:
+  DRAFT → SUBMITTED → UNDER_REVIEW → VOTING → APPROVED → EXECUTED
+                                              → REJECTED
+```
+
+## MCP Server Architecture
+
+| Server | Port | Tools |
+|--------|------|-------|
+| github-issues | 8001 | create_issue, list_issues |
+| ipfs-arweave-storage | 8002 | store_data, retrieve_data |
+| onchain-queries | 8003 | submit_proposal, query_votes |
+| telemetry-api | 8004 | query_telemetry, verify_telemetry_proof |
+
+## Technical Decisions
+
+| Decision | Choice |
+|----------|--------|
+| LangGraph version | Latest (>=0.2.0) |
+| CrewAI version | Latest (>=0.80.0) |
+| Pydantic version | v2 |
+| MCP transport | JSON-RPC 2.0 via jsonrpcserver |
+| Agent process | Sequential (CrewAI Process.sequential) |
+| Git commit cadence | Every 60s to dev branch (existing loop) |

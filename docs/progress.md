@@ -27,3 +27,22 @@ Next: Phase 2 — Agentic Governance & Workflows (LangGraph, CrewAI, MCP).
 - Branch: dev
 - Interval: 60s
 - Auto-push: yes
+
+---
+
+## Phase 2 — Agentic Governance & Workflows
+
+### Agent Status
+
+| Agent | Status | Files | Started | Completed |
+|-------|--------|-------|---------|-----------|
+| Agents (LangGraph + CrewAI) | ✅ Complete | 13 | 2026-05-12 | 2026-05-12 |
+| MCP Servers | ✅ Complete | 6 | 2026-05-12 | 2026-05-12 |
+| Tests & Docs | ✅ Complete | 2 + doc updates | 2026-05-12 | 2026-05-12 |
+
+### Components
+
+- **Governance State Machine**: Proposal lifecycle (draft → submitted → review → voting → approved/rejected → executed)
+- **CrewAI Agents**: Mission Planner, Budget Analyst, Data Verifier, Community Liaison
+- **MCP Servers**: GitHub issues, IPFS/Arweave storage, on-chain queries, telemetry API
+- **Robot Tests**: 17 new test cases covering all Phase 2 modules
