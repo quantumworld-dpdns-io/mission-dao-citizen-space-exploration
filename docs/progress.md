@@ -86,3 +86,48 @@ Next: Phase 2 — Agentic Governance & Workflows (LangGraph, CrewAI, MCP).
 - **SGLang Server**: Launch config for high-throughput serving with structured JSON generation (3 schemas: anomaly, optimization, mission plan)
 - **OpenTelemetry**: Tracer setup exporting to Arize Phoenix (OTLP gRPC), 6 custom metrics (inference latency, anomaly count, votes, ingested points, active agents, tokens)
 - **Flower Federated Learning**: NumPyClient for telemetry model training, FedAvg/FedAdagrad strategies, autoencoder anomaly detector + FFNN resource optimizer
+
+---
+
+## Phase 5 — WebAssembly & Sandboxed Execution
+
+### Agent Status
+
+| Agent | Status | Files | Started | Completed |
+|-------|--------|-------|---------|-----------|
+| WASM (Spin + Wasmtime) | ✅ Complete | 6 | 2026-05-12 | 2026-05-12 |
+
+### Components
+- **Fermyon Spin**: 4 HTTP micro-APIs (mission status, funding calculator, telemetry summary, health check)
+- **Wasmtime**: Plugin loader for sandboxed community-contributed .wasm modules
+
+---
+
+## Phase 6 — Security, Caching & Commerce
+
+### Agent Status
+
+| Agent | Status | Files | Started | Completed |
+|-------|--------|-------|---------|-----------|
+| Infra (Dragonfly + Teaclave + UCP + PQC) | ✅ Complete | 8 | 2026-05-12 | 2026-05-12 |
+
+### Components
+- **Dragonfly Cache**: Async Redis-compatible client for telemetry, missions, agents, proposals
+- **Apache Teaclave**: TEE enclave config + 3 confidential functions (decrypt, verify, aggregate)
+- **Google UCP**: Checkout session creation + funding product definitions
+- **PQC**: Hybrid key exchange (X25519 + AES-GCM), liboqs/OQS-OpenSSL3 setup script
+
+---
+
+## Containers & Web
+
+### Agent Status
+
+| Agent | Status | Files | Started | Completed |
+|-------|--------|-------|---------|-----------|
+| Docker Microservices | ✅ Complete | 7 | 2026-05-12 | 2026-05-12 |
+| Next.js Web App | ✅ Complete | 14 | 2026-05-12 | 2026-05-12 |
+
+### Components
+- **Docker Compose**: 12-service stack with dev/prod overlays, multi-stage builds
+- **Next.js 14**: App Router, 5 pages, Tailwind CSS, typed API client

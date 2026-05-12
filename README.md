@@ -25,8 +25,8 @@ The platform integrates:
 | **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | ✅ Complete |
 | **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | ✅ Complete |
 | **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | ✅ Complete |
-| **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | Planned |
-| **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | Planned |
+| **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | ✅ Complete |
+| **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | ✅ Complete |
 
 ## Project Structure
 
@@ -39,10 +39,11 @@ The platform integrates:
 │   ├── contracts/
 │   │   ├── circuits/          # Noir ZK circuits (telemetry, funding, Merkle)
 │   │   └── solidity/          # Solidity verifier contracts + deploy scripts
-│   ├── lakehouse/             # Data lakehouse (Iceberg, DuckDB, Trino, Qdrant, LanceDB)
-│   ├── serving/               # Local AI serving (Ollama, SGLang, OTEL)
 │   ├── federated/             # Federated learning (Flower)
+│   ├── infra/                 # Cache, TEE, UCP, PQC infrastructure
+│   ├── lakehouse/             # Data lakehouse (Iceberg, DuckDB, Trino, Qdrant, LanceDB)
 │   ├── mcp/                   # MCP servers (GitHub, storage, on-chain, telemetry)
+│   ├── serving/               # Local AI serving (Ollama, SGLang, OTEL)
 │   └── zkvm/                  # RISC Zero zkVM guest/host programs
 ├── scripts/                   # Setup, build, and test scripts
 ├── tests/
@@ -54,6 +55,8 @@ The platform integrates:
 │   ├── verifiers/             # Verifier contract tests
 │   ├── scripts/               # Script execution tests
 │   └── suites/                # Main test suites
+├── web/                     # Next.js 14 App Router frontend
+├── docker/                  # Docker Compose + multi-stage Dockerfiles
 ├── docs/
 │   ├── CONTRIBUTING.md        # Contribution guide
 │   ├── plan.md                # Phase 1 execution plan

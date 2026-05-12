@@ -324,3 +324,119 @@ tests/
 | Flower strategy | FedAvg with configurable local epochs + learning rate |
 | Anomaly model | Autoencoder (10→64→32→16 latent) |
 | Optimizer model | FFNN (8→128→128→64→4) with sigmoid output |
+
+---
+
+# Phase 5 Execution Plan: WebAssembly & Sandboxed Execution
+
+## Objectives
+1. Build Fermyon Spin micro-APIs for mission status, funding calculator, telemetry summary
+2. Embed Wasmtime for sandboxed community plugin execution
+
+## Files Created
+```
+src/wasm/
+├── __init__.py
+├── spin/
+│   ├── spin.toml          # 4 HTTP routes
+│   ├── Cargo.toml
+│   └── src/lib.rs         # mission_status, funding_calculator, telemetry_summary, health_check
+└── wasmtime/
+    ├── Cargo.toml
+    └── src/main.rs        # Plugin loader for .wasm files
+```
+
+---
+
+# Phase 6 Execution Plan: Security, Caching & Commerce
+
+## Objectives
+1. Deploy Dragonfly cache layer for real-time telemetry dashboards
+2. Configure Apache Teaclave TEE for confidential payload processing
+3. Wire Google UCP for mission funding checkout
+4. Enable PQC hybrid key exchange for mission communication
+
+## Files Created
+```
+src/infra/
+├── __init__.py
+├── requirements.txt
+├── dragonfly/
+│   └── client.py            # DragonflyCache with telemetry/mission/agent methods
+├── teaclave/
+│   ├── config.toml          # TEE enclave configuration
+│   └── functions.py         # telemetry_decrypt, payload_verify, mission_data_aggregate
+├── ucp/
+│   └── client.py            # UCPClient for checkout sessions + funding products
+└── pqc/
+    ├── setup.sh             # liboqs + OQS-OpenSSL3 install
+    └── hybrid.py            # X25519 + AES-GCM hybrid encryption
+```
+
+---
+
+# Container Microservices
+
+## Objectives
+1. Docker Compose stack for all services (12 containers)
+2. Multi-stage Dockerfiles for web (Next.js) and API (Python)
+3. Dev and production Compose overlays
+
+## Files Created
+```
+docker/
+├── docker-compose.yml        # 12 services: web, api, 4x mcp, qdrant, trino, polaris, dragonfly, phoenix, ollama
+├── docker-compose.dev.yml
+├── docker-compose.prod.yml
+├── web.Dockerfile            # Node.js multi-stage (dev/build/prod)
+├── api.Dockerfile            # Python multi-stage (dev/prod)
+├── .dockerignore
+└── config/trino/catalog/iceberg.properties
+```
+
+---
+
+# Next.js Web Application
+
+## Objectives
+1. Next.js 14+ App Router with TypeScript and Tailwind CSS
+2. Pages: Home, Missions, Proposals, DAO Dashboard
+3. API client library for backend services
+
+## Files Created
+```
+web/
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+├── tailwind.config.ts
+├── postcss.config.mjs
+├── .env.local
+└── src/
+    ├── app/
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   ├── page.tsx           # Landing page
+    │   ├── missions/page.tsx
+    │   ├── proposals/page.tsx
+    │   └── dao/page.tsx
+    ├── components/
+    │   └── Header.tsx
+    └── lib/
+        └── api.ts             # Fetch wrapper for API/MCP services
+```
+
+## Technical Decisions
+
+| Decision | Choice |
+|----------|--------|
+| Next.js version | 14.2 (App Router, standalone output) |
+| Styling | Tailwind CSS 3.4 with custom cosmic color palette |
+| API client | Typed fetch wrapper with env-configurable base URL |
+| Spin runtime | Fermyon Spin 3.x with WASI target |
+| Wasmtime version | 24.x with Tokio async runtime |
+| Dragonfly image | docker.dragonflydb.io/dragonflydb/dragonfly:latest |
+| Teaclave attestation | Simulation mode (SGX for production) |
+| UCP integration | REST API with Bearer token auth |
+| PQC algorithms | ML-KEM (key exchange), ML-DSA (signatures) via liboqs |
+| Hybrid encryption | X25519 ECDH + AES-256-GCM |
