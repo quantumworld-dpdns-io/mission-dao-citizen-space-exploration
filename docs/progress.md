@@ -66,3 +66,23 @@ Next: Phase 2 — Agentic Governance & Workflows (LangGraph, CrewAI, MCP).
 - **Trino**: Federated catalog config, 4 cross-mission queries (telemetry union, performance comparison, funding, anomaly detection)
 - **Qdrant**: 2 collections (mission_documents, telemetry_logs), semantic search with metadata filtering
 - **LanceDB**: 2 tables (telemetry_stream, telemetry_embeddings), batch ingestion + multimodal search
+
+---
+
+## Phase 4 — Local & Edge AI Serving
+
+### Agent Status
+
+| Agent | Status | Files | Started | Completed |
+|-------|--------|-------|---------|-----------|
+| Ollama Serving | In Progress | 6 | 2026-05-12 | — |
+| SGLang + OpenTelemetry | In Progress | 8 | 2026-05-12 | — |
+| Federated Learning | In Progress | 8 | 2026-05-12 | — |
+| Tests & Docs | In Progress | 4 + doc updates | 2026-05-12 | — |
+
+### Components
+
+- **Ollama Client**: HTTP API wrapper with 5 model configs + 4 prompt templates for anomaly detection, resource optimization, mission planning
+- **SGLang Server**: Launch config for high-throughput serving with structured JSON generation (3 schemas: anomaly, optimization, mission plan)
+- **OpenTelemetry**: Tracer setup exporting to Arize Phoenix (OTLP gRPC), 6 custom metrics (inference latency, anomaly count, votes, ingested points, active agents, tokens)
+- **Flower Federated Learning**: NumPyClient for telemetry model training, FedAvg/FedAdagrad strategies, autoencoder anomaly detector + FFNN resource optimizer

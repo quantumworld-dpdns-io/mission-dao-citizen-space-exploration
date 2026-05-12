@@ -250,3 +250,77 @@ tests/lakehouse/
 | DuckDB extensions | iceberg, httpfs |
 | Trino Iceberg connector | REST catalog type |
 | LanceDB storage | Local (data/mission_lancedb) |
+
+---
+
+# Phase 4 Execution Plan: Local & Edge AI Serving
+
+## Objectives
+
+1. Serve mission-assist models via Ollama (anomaly detection, resource optimization, mission planning)
+2. Deploy SGLang for high-throughput structured generation with JSON schema enforcement
+3. Wrap observability with OpenTelemetry SDKs exporting to Arize Phoenix
+4. Set up federated learning with Flower for cross-community telemetry model training
+
+## Agent Architecture
+
+| Agent | Domain | Outputs |
+|-------|--------|---------|
+| Ollama | Local model serving | src/serving/ollama/ (client, models, prompts) |
+| SGLang + OTEL | Structured gen + observability | src/serving/sglang/ (client, server, schemas), src/serving/openllmetry/ (tracing, phoenix, metrics) |
+| Federated | Flower FL | src/federated/ (client, server, strategy, models) |
+| Tests & Docs | E2E + Documentation | 4 test files, plan.md, progress.md, README.md |
+
+## Files Created
+
+```
+src/serving/
+├── __init__.py
+├── requirements.txt
+├── ollama/
+│   ├── __init__.py
+│   ├── client.py          # Ollama HTTP API wrapper
+│   ├── models.py          # Model configs for 5 mission tasks
+│   └── prompts.py         # 4 prompt templates + system prompts
+├── sglang/
+│   ├── __init__.py
+│   ├── client.py          # SGLang runtime client
+│   ├── server.py          # Server launch config
+│   └── structured_gen.py  # 3 JSON schemas + generate_structured
+└── openllmetry/
+    ├── __init__.py
+    ├── tracing.py         # OpenTelemetry tracer + Phoenix OTLP
+    ├── phoenix.py         # Arize Phoenix exporter config
+    └── metrics.py         # 6 custom OTEL metrics
+
+src/federated/
+├── __init__.py
+├── requirements.txt
+├── client.py             # TelemetryFlowerClient
+├── server.py             # Federated server launcher
+├── strategy.py           # FedAvg + FedAdagrad strategies
+└── models/
+    ├── __init__.py
+    ├── anomaly_detector.py  # Autoencoder-based anomaly detection
+    └── resource_optimizer.py # Feed-forward resource optimizer
+
+tests/
+├── serving/
+│   ├── test_ollama.robot    # 6 test cases
+│   ├── test_sglang.robot    # 6 test cases
+│   └── test_otel.robot      # 6 test cases
+└── federated/
+    └── test_flower.robot    # 7 test cases
+```
+
+## Technical Decisions
+
+| Decision | Choice |
+|----------|--------|
+| Ollama models | llama3.2:3b (anomaly, optimization), llama3.1:8b (planning, reports) |
+| SGLang features | FlashInfer, structured JSON decoding, metrics endpoint |
+| OTEL transport | OTLP gRPC to Phoenix (localhost:6006) |
+| Phoenix export | /v1/traces endpoint, project: mission-dao |
+| Flower strategy | FedAvg with configurable local epochs + learning rate |
+| Anomaly model | Autoencoder (10→64→32→16 latent) |
+| Optimizer model | FFNN (8→128→128→64→4) with sigmoid output |
