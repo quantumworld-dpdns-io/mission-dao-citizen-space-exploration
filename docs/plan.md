@@ -183,3 +183,70 @@ Proposal Lifecycle:
 | MCP transport | JSON-RPC 2.0 via jsonrpcserver |
 | Agent process | Sequential (CrewAI Process.sequential) |
 | Git commit cadence | Every 60s to dev branch (existing loop) |
+
+---
+
+# Phase 3 Execution Plan: Data Lakehouse & Retrieval
+
+## Objectives
+
+1. Deploy Apache Iceberg catalog via Polaris with mission telemetry schemas
+2. Set up DuckDB for local mission analytics
+3. Configure Trino for federated cross-mission queries
+4. Deploy Qdrant for RAG over mission documents, regulatory filings, sensor manuals
+5. Ingest telemetry into LanceDB for multimodal (image+vector+tabular) retrieval
+
+## Agent Architecture
+
+| Agent | Domain | Outputs |
+|-------|--------|---------|
+| Lakehouse Foundation | Iceberg + DuckDB + Trino | src/lakehouse/iceberg/ (3 files), src/lakehouse/duckdb/ (2 files), src/lakehouse/trino/ (3 files) |
+| Vector Retrieval | Qdrant + LanceDB | src/lakehouse/qdrant/ (2 files), src/lakehouse/lancedb/ (2 files) |
+| Tests & Docs | E2E + Documentation | tests/lakehouse/ (5 files), plan.md, progress.md, README.md |
+
+## Files Created
+
+```
+src/lakehouse/
+├── __init__.py
+├── requirements.txt
+├── iceberg/
+│   ├── __init__.py
+│   ├── schema.py          # TELEMETRY_SCHEMA, MISSION_SCHEMA
+│   ├── catalog.py         # Polaris REST catalog init
+│   └── queries.py         # 5 analytical queries
+├── duckdb/
+│   ├── __init__.py
+│   ├── setup.py           # DuckDB + Iceberg extension init
+│   └── queries.py         # 4 local analytics queries
+├── trino/
+│   ├── __init__.py
+│   ├── catalog.py         # Trino connection config
+│   ├── queries.py         # 4 federated queries
+│   └── catalog.yaml       # Trino Iceberg catalog config
+├── qdrant/
+│   ├── __init__.py
+│   ├── collection.py      # Vector collection configs + payload schemas
+│   └── ingestion.py       # Document ingestion + semantic search
+└── lancedb/
+    ├── __init__.py
+    ├── schema.py           # Multimodal table schemas (tabular + embeddings)
+    └── ingestion.py        # Telemetry batch ingest + embedding search
+tests/lakehouse/
+├── test_iceberg.robot      # 6 test cases
+├── test_duckdb.robot       # 4 test cases
+├── test_trino.robot        # 4 test cases
+├── test_qdrant.robot       # 4 test cases
+└── test_lancedb.robot      # 4 test cases
+```
+
+## Technical Decisions
+
+| Decision | Choice |
+|----------|--------|
+| Iceberg catalog | Polaris (REST) via PyIceberg |
+| Vector embedding model | all-MiniLM-L6-v2 (384 dim) |
+| Qdrant distance | Cosine |
+| DuckDB extensions | iceberg, httpfs |
+| Trino Iceberg connector | REST catalog type |
+| LanceDB storage | Local (data/mission_lancedb) |

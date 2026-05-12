@@ -11,6 +11,7 @@ The platform integrates:
 - **DAO Governance** — Solidity verifiers deployed to Arbitrum / Base / Sepolia
 - **Agent Orchestration** — LangGraph + CrewAI for proposal workflows
 - **Data Lakehouse** — Apache Iceberg + Trino + DuckDB for telemetry analytics
+- **Vector Retrieval** — Qdrant + LanceDB for mission-document RAG and multimodal telemetry search
 - **Edge AI** — Ollama/SGLang for local mission-assist model serving
 - **Federated Learning** — Flower for cross-community telemetry model training
 - **WebAssembly** — Fermyon Spin + Wasmtime for sandboxed plugin execution
@@ -21,7 +22,7 @@ The platform integrates:
 |-------|-------|--------|
 | **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | ✅ Complete |
 | **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | ✅ Complete |
-| **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | Planned |
+| **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | ✅ Complete |
 | **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | Planned |
 | **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | Planned |
 | **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | Planned |
@@ -37,6 +38,7 @@ The platform integrates:
 │   ├── contracts/
 │   │   ├── circuits/          # Noir ZK circuits (telemetry, funding, Merkle)
 │   │   └── solidity/          # Solidity verifier contracts + deploy scripts
+│   ├── lakehouse/             # Data lakehouse (Iceberg, DuckDB, Trino, Qdrant, LanceDB)
 │   ├── mcp/                   # MCP servers (GitHub, storage, on-chain, telemetry)
 │   └── zkvm/                  # RISC Zero zkVM guest/host programs
 ├── scripts/                   # Setup, build, and test scripts
