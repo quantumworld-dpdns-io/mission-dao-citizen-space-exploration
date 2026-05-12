@@ -75,10 +75,10 @@ Next: Phase 2 — Agentic Governance & Workflows (LangGraph, CrewAI, MCP).
 
 | Agent | Status | Files | Started | Completed |
 |-------|--------|-------|---------|-----------|
-| Ollama Serving | In Progress | 6 | 2026-05-12 | — |
-| SGLang + OpenTelemetry | In Progress | 8 | 2026-05-12 | — |
-| Federated Learning | In Progress | 8 | 2026-05-12 | — |
-| Tests & Docs | In Progress | 4 + doc updates | 2026-05-12 | — |
+| Ollama Serving | ✅ Complete | 6 | 2026-05-12 | 2026-05-12 |
+| SGLang + OpenTelemetry | ✅ Complete | 8 | 2026-05-12 | 2026-05-12 |
+| Federated Learning | ✅ Complete | 8 | 2026-05-12 | 2026-05-12 |
+| Tests & Docs | ✅ Complete | 4 + doc updates | 2026-05-12 | 2026-05-12 |
 
 ### Components
 

@@ -13,7 +13,6 @@ The platform integrates:
 - **Data Lakehouse** — Apache Iceberg + Trino + DuckDB for telemetry analytics
 - **Vector Retrieval** — Qdrant + LanceDB for mission-document RAG and multimodal telemetry search
 - **Local AI** — Ollama + SGLang for edge model serving and structured generation
-- **Edge AI** — Ollama/SGLang for local mission-assist model serving
 - **Federated Learning** — Flower for cross-community telemetry model training
 - **Observability** — OpenTelemetry + Arize Phoenix for LLM tracing and metrics
 - **WebAssembly** — Fermyon Spin + Wasmtime for sandboxed plugin execution
@@ -25,7 +24,7 @@ The platform integrates:
 | **1** | DAO & Verifiable Data Foundation (ZK circuits, zkVM, verifiers) | ✅ Complete |
 | **2** | Agentic Governance & Workflows (LangGraph, CrewAI, MCP) | ✅ Complete |
 | **3** | Data Lakehouse & Retrieval (Iceberg, Trino, Qdrant) | ✅ Complete |
-| **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | In Progress |
+| **4** | Local & Edge AI Serving (Ollama, SGLang, OpenTelemetry) | ✅ Complete |
 | **5** | WebAssembly & Sandboxed Execution (Spin, Wasmtime) | Planned |
 | **6** | Security, Caching & Commerce (Dragonfly, Teaclave, UCP) | Planned |
 
